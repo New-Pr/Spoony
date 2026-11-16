@@ -9,6 +9,7 @@ import 'screens/dashboard_screen.dart';
 import 'screens/admin_screen.dart';
 import 'screens/driver_screen.dart';
 import 'recovery_flag.dart';
+import 'widgets/messenger_fab.dart';
 
 class _FadePageTransition extends PageTransitionsBuilder {
   const _FadePageTransition();
@@ -73,6 +74,12 @@ class SpoonyApp extends StatelessWidget {
                   ),
                 ),
           ),
+          navigatorObservers: [RouteNameObserver()],
+          // Floating Messenger chat button over every visitor page.
+          builder: (context, child) => Stack(children: [
+            child ?? const SizedBox.shrink(),
+            MessengerFab(hideOnRoot: kHasRecoveryToken),
+          ]),
           initialRoute: '/',
           routes: {
             // Visitors land on the home page. The login screen only takes over the root

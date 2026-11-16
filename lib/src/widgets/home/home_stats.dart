@@ -12,9 +12,11 @@ class HomeStatsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final stats = <_Stat>[
       _Stat(Icons.place_rounded, cebuDestinations.length.toDouble(), (v) => v.round().toString(), 'Destinations'),
-      _Stat(Icons.groups_rounded, 1200, (v) => '${NumberFormatLite.thousands(v.round())}+', 'Happy travelers'),
-      _Stat(Icons.star_rounded, 4.9, (v) => v.toStringAsFixed(1), 'Average rating', star: true),
-      _Stat(Icons.support_agent_rounded, 24, (v) => '${v.round()}/7', 'Support'),
+      // Real figures from facebook.com/CebuSpoony/reviews (keep in sync with the
+      // testimonials summary in home_story.dart). Oldest review: August 2019.
+      _Stat(Icons.thumb_up_alt_rounded, 100, (v) => '${v.round()}%', 'Recommend us'),
+      _Stat(Icons.reviews_rounded, 44, (v) => v.round().toString(), 'Facebook reviews'),
+      _Stat(Icons.event_available_rounded, 2019, (_) => '2019', 'Touring since'),
     ];
 
     return LayoutBuilder(builder: (context, c) {
@@ -80,8 +82,7 @@ class _Stat {
   final double value;
   final String Function(double) format;
   final String label;
-  final bool star;
-  const _Stat(this.icon, this.value, this.format, this.label, {this.star = false});
+  const _Stat(this.icon, this.value, this.format, this.label);
 }
 
 class _StatTile extends StatelessWidget {
@@ -112,27 +113,19 @@ class _StatTile extends StatelessWidget {
                   tween: Tween(begin: 0, end: stat.value),
                   duration: const Duration(milliseconds: 1200),
                   curve: Curves.easeOutCubic,
-                  builder: (_, v, _) => Row(mainAxisSize: MainAxisSize.min, children: [
-                    Flexible(
-                      child: Text(
-                        stat.format(v),
-                        maxLines: 1,
-                        overflow: TextOverflow.fade,
-                        softWrap: false,
-                        style: GoogleFonts.poppins(
-                          fontSize: compact ? 22 : 28,
-                          fontWeight: FontWeight.w700,
-                          color: Wm.ink,
-                          height: 1.1,
-                          fontFeatures: const [FontFeature.tabularFigures()],
-                        ),
-                      ),
+                  builder: (_, v, _) => Text(
+                    stat.format(v),
+                    maxLines: 1,
+                    overflow: TextOverflow.fade,
+                    softWrap: false,
+                    style: GoogleFonts.poppins(
+                      fontSize: compact ? 22 : 28,
+                      fontWeight: FontWeight.w700,
+                      color: Wm.ink,
+                      height: 1.1,
+                      fontFeatures: const [FontFeature.tabularFigures()],
                     ),
-                    if (stat.star) ...[
-                      const SizedBox(width: 3),
-                      Icon(Icons.star_rounded, size: compact ? 18 : 22, color: const Color(0xFFF59E0B)),
-                    ],
-                  ]),
+                  ),
                 ),
                 const SizedBox(height: 2),
                 Text(stat.label,

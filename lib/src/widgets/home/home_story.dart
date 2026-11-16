@@ -266,6 +266,126 @@ class _FeatureCardState extends State<_FeatureCard> {
   }
 }
 
+// ── Meet your guides ─────────────────────────────────────────────────────────
+// Team members travelers mention by name in Facebook reviews. Quotes are
+// verbatim excerpts from those reviews. Add `photo:` (asset path or URL) once
+// each guide has approved a photo; until then their initial is shown.
+
+class _Guide {
+  final String name;
+  final String role;
+  final String quote;
+  final String quoteBy;
+  final String? photo;
+  // ignore: unused_element_parameter
+  const _Guide({required this.name, required this.role, required this.quote, required this.quoteBy, this.photo});
+}
+
+const _guides = [
+  _Guide(
+    name: 'Kuya Rodjen',
+    role: 'Organizer',
+    quote: 'Our ever-reliable organizer who made sure everything was smooth and hassle-free',
+    quoteBy: 'Christine F.',
+  ),
+  _Guide(
+    name: 'Kuya Vincent',
+    role: 'Driver · Guide · Photographer',
+    quote: 'Driver, photographer, videographer, at human drone … sobrang solid!',
+    quoteBy: 'Kristel D.',
+  ),
+  _Guide(
+    name: 'Kuya Junjun',
+    role: 'Driver & Tour Guide',
+    quote: 'Sobrang bait and masayahin din ng driver.',
+    quoteBy: 'Janella E.',
+  ),
+  _Guide(
+    name: 'Kuya Christian',
+    role: 'Driver',
+    quote: 'He was funny, friendly, and always helpful.',
+    quoteBy: 'Pung M.',
+  ),
+];
+
+class HomeGuidesSection extends StatelessWidget {
+  final double hPad;
+  const HomeGuidesSection({super.key, required this.hPad});
+
+  @override
+  Widget build(BuildContext context) {
+    final mobile = MediaQuery.of(context).size.width < 700;
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: hPad, vertical: mobile ? 56 : 88),
+      child: Column(children: [
+        WmBlurIn(child: _eyebrow('MEET YOUR GUIDES', center: true)),
+        const SizedBox(height: 14),
+        WmBlurIn(
+          delay: const Duration(milliseconds: 80),
+          child: Text('The kuyas travelers rave about', textAlign: TextAlign.center, style: _title(mobile)),
+        ),
+        const SizedBox(height: 10),
+        WmBlurIn(
+          delay: const Duration(milliseconds: 160),
+          child: const Text('Drivers, guides and photographers who know Cebu inside out.',
+              textAlign: TextAlign.center, style: TextStyle(fontSize: 15, color: Wm.muted, height: 1.5)),
+        ),
+        SizedBox(height: mobile ? 30 : 44),
+        Wrap(
+          spacing: 20,
+          runSpacing: 20,
+          alignment: WrapAlignment.center,
+          children: [
+            for (var i = 0; i < _guides.length; i++)
+              _GuideCard(guide: _guides[i], color: _kCardColors[i % _kCardColors.length], width: mobile ? double.infinity : 260),
+          ],
+        ),
+      ]),
+    );
+  }
+}
+
+class _GuideCard extends StatelessWidget {
+  final _Guide guide;
+  final Color color;
+  final double width;
+  const _GuideCard({required this.guide, required this.color, required this.width});
+
+  @override
+  Widget build(BuildContext context) {
+    final initial = guide.name.split(' ').last[0];
+    return Container(
+      width: width == double.infinity ? null : width,
+      padding: const EdgeInsets.all(22),
+      decoration: Wm.card(tint: color),
+      child: Column(children: [
+        CircleAvatar(
+          radius: 40,
+          backgroundColor: color.withValues(alpha: 0.14),
+          backgroundImage: guide.photo == null
+              ? null
+              : (guide.photo!.startsWith('http') ? NetworkImage(guide.photo!) : AssetImage(guide.photo!)) as ImageProvider,
+          child: guide.photo == null
+              ? Text(initial, style: TextStyle(color: color, fontWeight: FontWeight.w800, fontSize: 28))
+              : null,
+        ),
+        const SizedBox(height: 14),
+        Text(guide.name, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w800, color: Wm.ink)),
+        const SizedBox(height: 4),
+        Text(guide.role,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600, color: color)),
+        const SizedBox(height: 14),
+        Text('"${guide.quote}"',
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 13.5, color: Wm.inkSoft, height: 1.55, fontStyle: FontStyle.italic)),
+        const SizedBox(height: 8),
+        Text('— ${guide.quoteBy}, Facebook review', style: const TextStyle(fontSize: 11.5, color: Wm.muted)),
+      ]),
+    );
+  }
+}
+
 // ── 2. Testimonials marquee ──────────────────────────────────────────────────
 
 // Real reviews copied from facebook.com/CebuSpoony/reviews.

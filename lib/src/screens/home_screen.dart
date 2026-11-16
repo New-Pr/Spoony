@@ -111,6 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     HomePackagesSection(hPad: hPad),
                     HomeVideosSection(hPad: hPad),
                     HomeWhySection(hPad: hPad),
+                    HomeGuidesSection(hPad: hPad),
                     HomeTestimonialsSection(hPad: hPad),
                     Padding(
                       padding: EdgeInsets.only(top: mobile ? 48 : 80, bottom: mobile ? 4 : 16),
