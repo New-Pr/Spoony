@@ -10,7 +10,10 @@ async function migrate() {
   console.log('Schema applied.');
 
   const adminEmail = process.env.ADMIN_EMAIL || 'admin@spoony.com';
-  const adminPassword = process.env.ADMIN_PASSWORD || 'Admin@1234';
+  const adminPassword = process.env.ADMIN_PASSWORD;
+  if (!adminPassword) {
+    throw new Error('ADMIN_PASSWORD must be set to seed the admin account.');
+  }
 
   const { data, error } = await supabaseAdmin.auth.admin.createUser({
     email: adminEmail,
