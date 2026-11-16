@@ -59,7 +59,8 @@ if (WEB_DIR) {
     maxAge: '1h',
     setHeaders: (res, filePath) => {
       // Always revalidate the entry files so new deploys show up immediately.
-      if (/(index\.html|flutter_service_worker\.js|flutter_bootstrap\.js|version\.json)$/.test(filePath)) {
+      // main.dart.js and the asset manifests keep the same name across builds, so they must be revalidated too.
+      if (/(index\.html|flutter_service_worker\.js|flutter_bootstrap\.js|version\.json|main\.dart\.js|AssetManifest\.[a-z.]+|FontManifest\.json|manifest\.json)$/.test(filePath)) {
         res.setHeader('Cache-Control', 'no-cache');
       }
     },
