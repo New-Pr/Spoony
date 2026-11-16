@@ -1,6 +1,7 @@
 // Homepage story sections: "Why Spoony" bento, testimonials marquee, CTA banner.
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../data/cebu_data.dart';
 import '../../screens/booking_screen.dart';
@@ -267,36 +268,37 @@ class _FeatureCardState extends State<_FeatureCard> {
 
 // ── 2. Testimonials marquee ──────────────────────────────────────────────────
 
+// Real reviews copied from facebook.com/CebuSpoony/reviews.
+// Facebook reviews are "Recommends" (stars == null); older ones may carry a
+// real 1–5 star rating. Never invent reviews or ratings here.
 class _Review {
-  final String name;
-  final String city;
-  final double rating;
-  final String text;
-  final String trip;
-  final Color color;
-  const _Review(this.name, this.city, this.rating, this.text, this.trip, this.color);
+  final String name; // full name as on Facebook; shown shortened ("Juan D.")
+  final String text; // verbatim review text
+  final String date; // e.g. 'March 2025'
+  final int? stars; // null = "Recommends"
+  final String? trip; // optional tour/destination mentioned
+  // ignore: unused_element_parameter
+  const _Review({required this.name, required this.text, required this.date, this.stars, this.trip});
 }
 
-const _reviews = [
-  _Review('Maria Santos', 'Cebu City', 4.9,
-      'Spoony made our Cebu trip absolutely perfect! The booking was seamless and the destinations they suggested were hidden gems we never would have found on our own.',
-      'Sirao Garden', Wm.accent),
-  _Review('John Reyes', 'Manila', 5.0,
-      'Best travel platform for Cebu! The real-time itinerary planner saved us hours of planning. Kawasan Falls was breathtaking — everything was organized perfectly.',
-      'Kawasan Falls', _kGreen),
-  _Review('Ana Villanueva', 'Davao', 4.8,
-      'Wonderful experience! The team at Spoony was so helpful and responsive. Booked Osmeña Peak and Sardine Run in one go — it was incredible!',
-      'Osmeña Peak', Color(0xFF6366F1)),
-  _Review('Kenji Watanabe', 'Osaka, Japan', 4.9,
-      'Our driver arrived right on time and we could track him live. The Sumilon sandbar at low tide was the highlight of our honeymoon.',
-      'Sumilon Island', Color(0xFF0EA5E9)),
-  _Review('Liza Mendoza', 'Iloilo', 4.7,
-      'Joined the North Cebu island hop as a solo traveler and made friends for life. Bantayan sunsets are unreal — very good value for the joiner price.',
-      'Bantayan Island', _kGold),
-  _Review('Daniel Cruz', 'Quezon City', 5.0,
-      'Booked a premium family tour with my parents and kids. Everything from the van to the lunch stops was smooth. Temple of Leah at night was magical.',
-      'Temple of Leah', Color(0xFFE11D48)),
+const _kFacebookReviewsUrl = 'https://www.facebook.com/CebuSpoony/reviews';
+
+// Summary shown at the top of the reviews tab, e.g. '95% recommend · 120 reviews'.
+// Leave null until copied from Facebook.
+const String? _kFacebookSummary = null;
+
+const List<_Review> _reviews = [
+  // _Review(name: 'Juan Dela Cruz', date: 'March 2025', text: '...', trip: 'Kawasan Falls'),
 ];
+
+const _kCardColors = [Wm.accent, _kGreen, Color(0xFF6366F1), Color(0xFF0EA5E9), _kGold, Color(0xFFE11D48)];
+
+/// "Juan Dela Cruz" -> "Juan D."
+String _shortName(String full) {
+  final parts = full.trim().split(RegExp(r'\s+'));
+  if (parts.length < 2) return parts.first;
+  return '${parts.first} ${parts.last[0].toUpperCase()}.';
+}
 
 class HomeTestimonialsSection extends StatefulWidget {
   final double hPad;
@@ -337,6 +339,7 @@ class _HomeTestimonialsSectionState extends State<HomeTestimonialsSection> with 
 
   @override
   Widget build(BuildContext context) {
+    if (_reviews.isEmpty) return const SizedBox.shrink();
     final mobile = MediaQuery.of(context).size.width < 700;
     final header = Padding(
       padding: EdgeInsets.symmetric(horizontal: widget.hPad),
@@ -350,8 +353,19 @@ class _HomeTestimonialsSectionState extends State<HomeTestimonialsSection> with 
         const SizedBox(height: 10),
         WmBlurIn(
           delay: const Duration(milliseconds: 160),
-          child: const Text('Real reviews from people who explored Cebu with Spoony.',
-              textAlign: TextAlign.center, style: TextStyle(fontSize: 15, color: Wm.muted, height: 1.5)),
+          child: Text(
+              _kFacebookSummary == null ? 'Reviews from our Facebook page.' : '$_kFacebookSummary on Facebook',
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 15, color: Wm.muted, height: 1.5)),
+        ),
+        const SizedBox(height: 6),
+        WmBlurIn(
+          delay: const Duration(milliseconds: 220),
+          child: TextButton.icon(
+            onPressed: () => launchUrl(Uri.parse(_kFacebookReviewsUrl), mode: LaunchMode.externalApplication),
+            icon: const Icon(Icons.open_in_new_rounded, size: 16),
+            label: const Text('Read all reviews on Facebook'),
+          ),
         ),
       ]),
     );
@@ -364,7 +378,10 @@ class _HomeTestimonialsSectionState extends State<HomeTestimonialsSection> with 
           spacing: _gap,
           runSpacing: _gap,
           alignment: WrapAlignment.center,
-          children: [for (final r in _reviews) _ReviewCard(review: r, width: mobile ? double.infinity : _cardW)],
+          children: [
+            for (var i = 0; i < _reviews.length; i++)
+              _ReviewCard(review: _reviews[i], index: i, width: mobile ? double.infinity : _cardW),
+          ],
         ),
       );
     } else {
@@ -375,8 +392,10 @@ class _HomeTestimonialsSectionState extends State<HomeTestimonialsSection> with 
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           for (var k = 0; k < 2; k++)
-            for (final r in _reviews)
-              Padding(padding: const EdgeInsets.only(right: _gap), child: _ReviewCard(review: r, width: cardW)),
+            for (var i = 0; i < _reviews.length; i++)
+              Padding(
+                  padding: const EdgeInsets.only(right: _gap),
+                  child: _ReviewCard(review: _reviews[i], index: i, width: cardW)),
         ],
       );
       body = MouseRegion(
@@ -419,8 +438,9 @@ class _HomeTestimonialsSectionState extends State<HomeTestimonialsSection> with 
 
 class _ReviewCard extends StatefulWidget {
   final _Review review;
+  final int index;
   final double width;
-  const _ReviewCard({required this.review, required this.width});
+  const _ReviewCard({required this.review, required this.index, required this.width});
 
   @override
   State<_ReviewCard> createState() => _ReviewCardState();
@@ -432,7 +452,9 @@ class _ReviewCardState extends State<_ReviewCard> {
   @override
   Widget build(BuildContext context) {
     final r = widget.review;
-    final initials = r.name.split(' ').map((p) => p.isEmpty ? '' : p[0]).take(2).join();
+    final color = _kCardColors[widget.index % _kCardColors.length];
+    final name = _shortName(r.name);
+    final initials = name.split(' ').map((p) => p.isEmpty ? '' : p[0]).take(2).join();
     return MouseRegion(
       onEnter: (_) => setState(() => _hover = true),
       onExit: (_) => setState(() => _hover = false),
@@ -441,13 +463,26 @@ class _ReviewCardState extends State<_ReviewCard> {
         width: widget.width == double.infinity ? null : widget.width,
         height: widget.width == double.infinity ? null : 250,
         padding: const EdgeInsets.all(22),
-        decoration: Wm.card(hover: _hover, tint: r.color),
+        decoration: Wm.card(hover: _hover, tint: color),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(children: [
-            for (var i = 0; i < 5; i++)
-              Icon(Icons.star_rounded, size: 17, color: i < r.rating.round() ? _kGold : Wm.border),
+            if (r.stars != null)
+              for (var i = 0; i < 5; i++)
+                Icon(Icons.star_rounded, size: 17, color: i < r.stars! ? _kGold : Wm.border)
+            else
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 4),
+                decoration: BoxDecoration(
+                    color: const Color(0xFF1877F2).withValues(alpha: 0.10), borderRadius: BorderRadius.circular(999)),
+                child: const Row(mainAxisSize: MainAxisSize.min, children: [
+                  Icon(Icons.thumb_up_alt_rounded, size: 13, color: Color(0xFF1877F2)),
+                  SizedBox(width: 5),
+                  Text('Recommends',
+                      style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w700, color: Color(0xFF1877F2))),
+                ]),
+              ),
             const Spacer(),
-            Icon(Icons.format_quote_rounded, size: 26, color: r.color.withValues(alpha: 0.35)),
+            Icon(Icons.format_quote_rounded, size: 26, color: color.withValues(alpha: 0.35)),
           ]),
           const SizedBox(height: 12),
           Flexible(
@@ -461,22 +496,23 @@ class _ReviewCardState extends State<_ReviewCard> {
           Row(children: [
             CircleAvatar(
               radius: 19,
-              backgroundColor: r.color.withValues(alpha: 0.14),
-              child: Text(initials, style: TextStyle(color: r.color, fontWeight: FontWeight.w700, fontSize: 13)),
+              backgroundColor: color.withValues(alpha: 0.14),
+              child: Text(initials, style: TextStyle(color: color, fontWeight: FontWeight.w700, fontSize: 13)),
             ),
             const SizedBox(width: 10),
             Expanded(
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisSize: MainAxisSize.min, children: [
-                Text(r.name,
+                Text(name,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(fontSize: 13.5, fontWeight: FontWeight.w700, color: Wm.ink)),
-                Text(r.city,
+                Text('Facebook · ${r.date}',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(fontSize: 11.5, color: Wm.muted)),
               ]),
             ),
+            if (r.trip != null) ...[
             const SizedBox(width: 8),
             Flexible(
               child: Container(
@@ -486,7 +522,7 @@ class _ReviewCardState extends State<_ReviewCard> {
                   const Icon(Icons.location_on_rounded, size: 12, color: Wm.accent),
                   const SizedBox(width: 3),
                   Flexible(
-                    child: Text(r.trip,
+                    child: Text(r.trip!,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: Wm.inkSoft)),
@@ -494,6 +530,7 @@ class _ReviewCardState extends State<_ReviewCard> {
                 ]),
               ),
             ),
+            ],
           ]),
         ]),
       ),
