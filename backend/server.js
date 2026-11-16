@@ -1,5 +1,5 @@
 require('dotenv').config();
-// Force IPv4 DNS resolution — Render free tier can't reach IPv6 addresses
+// Force IPv4 DNS resolution — some hosts cannot reach IPv6 addresses
 require('dns').setDefaultResultOrder('ipv4first');
 const fs = require('fs');
 const path = require('path');
@@ -45,7 +45,7 @@ app.use('/api/reviews', reviewRoutes);
 
 // ── Flutter web app ──────────────────────────────────────────────────────────
 // Serves the committed Flutter build (repo-root build/web) so the website is
-// available at the root URL of this Render service. Build it locally with
+// available at the root URL of the backend service. Build it locally with
 // `flutter build web --release` and commit build/web before pushing.
 const WEB_DIR = [
   process.env.WEB_DIR,

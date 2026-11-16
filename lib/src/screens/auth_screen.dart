@@ -185,7 +185,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
     try {
       await Supabase.instance.client.auth.signInWithOAuth(
         OAuthProvider.google,
-        redirectTo: 'https://spoony.vercel.app',
+        redirectTo: Uri.base.origin,
       );
     } on AuthException catch (e) {
       setState(() => _errorMessage = e.message);
@@ -854,7 +854,7 @@ class _ForgotPasswordDialogState extends State<_ForgotPasswordDialog> {
                         await Supabase.instance.client.auth
                             .resetPasswordForEmail(
                               _ctrl.text.trim(),
-                              redirectTo: 'https://spoony.vercel.app/',
+                              redirectTo: '${Uri.base.origin}/',
                             )
                             .timeout(const Duration(seconds: 20));
                         if (mounted) setState(() => _sent = true);

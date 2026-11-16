@@ -1,6 +1,8 @@
-# BACKEND ARCHITECTURE (RENDER)
+# BACKEND ARCHITECTURE (RAILWAY)
 
-Render is the cloud backend hosting platform for Spoony Travel & Tours.
+Railway is the cloud hosting platform for Spoony Travel & Tours. The Express
+backend serves both the REST API (`/api/*`) and the Flutter web build.
+Supabase provides the database, authentication, storage and Edge Functions.
 
 ---
 
@@ -10,8 +12,8 @@ Render is the cloud backend hosting platform for Spoony Travel & Tours.
 |---|---|
 | Frontend | Flutter Mobile App + Flutter Web Admin Dashboard |
 | Backend | Node.js + Express.js |
-| Database | PostgreSQL |
-| Hosting | Render |
+| Database | Supabase (PostgreSQL) |
+| Hosting | Railway |
 | Storage | Cloudinary |
 | Authentication | JWT + bcrypt |
 | Maps & Distance | Google Maps Distance Matrix API |
@@ -202,29 +204,34 @@ Admins can:
 
 ---
 
-## DEPLOYMENT ON RENDER
+## DEPLOYMENT ON RAILWAY
 
 ### Steps
 
-1. Push `backend/` to GitHub repository
-2. On Render: create **Web Service** → connect GitHub repo → set root to `backend/`
-3. On Render: create **PostgreSQL** database → copy connection string
-4. Set environment variables:
+1. Build the web app locally (`flutter build web --release`) and commit `build/web`
+2. On Railway: **New Project** → **Deploy from GitHub repo** → select the repo
+3. Set the build command to `npm --prefix backend install` and the start command to `node backend/server.js`
+   (deploying from the repo root keeps `build/web` available to `server.js`)
+4. Set environment variables (copy from `backend/.env.example`):
 
 ```env
-DATABASE_URL=postgresql://...
+SUPABASE_URL=https://<project-id>.supabase.co
+SUPABASE_ANON_KEY=...
+SUPABASE_SERVICE_ROLE_KEY=...
+DATABASE_URL=postgresql://...   # Supabase connection string
 JWT_SECRET=your_secret_key
-CLOUDINARY_URL=cloudinary://...
 NODE_ENV=production
-PORT=3000
+ALLOWED_ORIGINS=https://<your-app>.up.railway.app
 ```
 
-5. Build command: `npm install`
-6. Start command: `node server.js`
+Railway sets `PORT` automatically.
+
+5. In Supabase → Authentication → URL Configuration, set the Site URL and
+   redirect URLs to the Railway domain (used for Google sign-in and password reset).
 
 ### Auto-Deploy
 
-Render auto-deploys on every push to `main` branch. No manual steps needed after initial setup.
+Railway auto-deploys on every push to the connected branch.
 
 ---
 
@@ -232,10 +239,11 @@ Render auto-deploys on every push to `main` branch. No manual steps needed after
 
 The Flutter app communicates with the backend through `lib/src/services/api_service.dart`.
 
-Set the API base URL at build time:
+On web, the app calls `/api` on the same host that serves it, so no
+configuration is needed. For mobile builds, set the API base URL at build time:
 
 ```bash
-flutter run --dart-define=API_BASE_URL=https://spoony-api.onrender.com/api
+flutter run --dart-define=API_BASE_URL=https://<your-app>.up.railway.app/api
 ```
 
 Or for local development:

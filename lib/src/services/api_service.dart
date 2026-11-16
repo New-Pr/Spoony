@@ -1,9 +1,19 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:http/http.dart' as http;
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ApiService {
-  static const String _baseUrl = 'https://spoony.onrender.com/api';
+  // Override at build time: --dart-define=API_BASE_URL=https://<host>/api
+  // On web, defaults to the same host that serves the app (the backend serves
+  // both the Flutter web build and /api).
+  static const String _definedBaseUrl = String.fromEnvironment('API_BASE_URL');
+
+  static String get _baseUrl {
+    if (_definedBaseUrl.isNotEmpty) return _definedBaseUrl;
+    if (kIsWeb) return '${Uri.base.origin}/api';
+    return 'http://localhost:3000/api';
+  }
 
   static bool get isAuthenticated =>
       Supabase.instance.client.auth.currentSession != null;
