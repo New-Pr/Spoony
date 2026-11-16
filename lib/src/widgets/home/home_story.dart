@@ -283,12 +283,303 @@ class _Review {
 
 const _kFacebookReviewsUrl = 'https://www.facebook.com/CebuSpoony/reviews';
 
-// Summary shown at the top of the reviews tab, e.g. '95% recommend · 120 reviews'.
-// Leave null until copied from Facebook.
-const String? _kFacebookSummary = null;
+// Summary shown at the top of the Facebook reviews tab.
+const _kFacebookSummary = '100% recommend · 44 reviews';
 
 const List<_Review> _reviews = [
-  // _Review(name: 'Juan Dela Cruz', date: 'March 2025', text: '...', trip: 'Kawasan Falls'),
+  _Review(
+    name: 'Pung Mutita',
+    date: 'October 2026',
+    text: '⭐⭐⭐⭐⭐ เยี่ยมมาก Highly recommended! '
+        'As a Thai traveler visiting the Philippines for the first time, I wanted to make the most of my Cebu trip '
+        'with an itinerary tailored to my interests. I planned everything on short notice and wanted to include '
+        'freediving, explore the mountains, visit a local night market, and choose my own accommodations. '
+        'That’s when I found Spoony Cebu Travel and Tours, and I’m so glad I did! '
+        'The admin was quick to respond, helpful, and full of great recommendations. Even when I had trouble with '
+        'international bank transfers, they genuinely tried to help me find a solution. I really appreciated their '
+        'flexibility and willingness to accommodate my plans. '
+        'Since some days were dedicated to full-day freediving trips, the team adjusted the transportation '
+        'arrangements to fit our schedule. Everything worked out well, and I was happy to have the freedom to plan '
+        'the trip my way. '
+        'A special shout-out to Kuya Christian, our driver!! He was funny, friendly, and always helpful. He shared '
+        'local tips, helped carry our belongings, and took photos for us. My favorite part was having him show us '
+        'around the night market and introduce us to delicious local food. We had such a great time. Oh, and he’s '
+        'a pretty good singer too😆🚗 '
+        'Thanks to the Spoony team, our first trip to the Philippines was such a memorable one. We had a great time '
+        'in Cebu.  ขอบคุณค่ะ🙏🏻🇹🇭🫶🏻🇵🇭',
+    trip: 'Custom Cebu Itinerary',
+  ),
+  _Review(
+    name: 'MJ Villanueva',
+    date: 'August 2026',
+    text: 'Good morning po. 🌞😀 Thank you so much po for accommodating us and for the tour, it was absolutely the '
+        'best! Even though our time was limited, we enjoyed every moment so much. Our driver was very approachable, '
+        'friendly, and truly made the trip better. Everything went smoothly, and we had such a wonderful experience. '
+        'We’ll definitely recommend this (page) to our friends and looking forward to booking again! ✨🥰',
+  ),
+  _Review(
+    name: 'Katherine Palmario',
+    date: 'June 2026',
+    text: 'Highly recommended! Shoutout to Kuya Vincent, our driver/tour guide for our city tour. He shared lots of '
+        'interesting trivia about Cebu, and a safe driver. He definitely made our trip more memorable! 💯',
+    trip: 'City Tour',
+  ),
+  _Review(
+    name: 'Ivy C. Arguelles',
+    date: 'June 2026',
+    text: 'Super highly recommended. Hi po Spoony Cebu. Thank you so much po for making our Cebu Trip enjoyable and '
+        'fun. The private tour for Day 1 (June 28, 2026) is really fun and we’ve learned so much from Kuya Vincent po '
+        'about Cebu. He’s been our Driver/Tour guide/Photographer. Ang gaganda ng mga shots. Kudos to you Kuya. 🫶🏻 '
+        'Our Day 2 (June 29) is memorable since we’ve met new friends as part of the joiners. The water activities '
+        'are great. Thank you also to Kuya Christian for the safe driving. Our Cebu trip is tiring but so worth it '
+        'po. 💕 Continue to offer good service po. More power. Thank you so much po ulit. ❤️',
+    trip: 'Private & Joiner Tour',
+  ),
+  _Review(
+    name: 'Anitsirc Sabasalab',
+    date: 'June 2026',
+    text: 'Highly recommendable. First, fast ang transaction, on time ang pick up. Mabait ang driver and enjoy during '
+        'travel maypa videoke pa.',
+  ),
+  _Review(
+    name: 'Karla',
+    date: 'May 2026',
+    text: 'Highly recommended! Thank you Spoony Cebu Travel and Tours for the smooth 6 days trip. Plus a very '
+        'accomodating and fun to be with tour guide Sir Vincent. He was a family to us during our 6 days trip with '
+        'him. ❤️',
+    trip: '6-Day Trip',
+  ),
+  _Review(
+    name: 'Jannah Jessever Alora',
+    date: 'May 2026',
+    text: 'Of all the tours we had, Spoony Cebu Travel and Tours was the best!! We had the most amazing tour guides!! '
+        'Shoutout for Kuya Vincent for literally driving us from North to South for 3 days straight. You are highly '
+        'recommended super fun and entertaining. Will never forget the funniest tour guides for our canyoneering '
+        'experience, parang di kami napagod sa kakatawa and how you constantly check up on us. We felt super safe '
+        'and secured. Literally never a dull moment for the whole trip!! Also for Sir Rodjen, for accommodating all '
+        'of my questions and making our whole tour possible. You’re missing out if hindi sila ang pinili niyong '
+        'travel and tours!! Super worth it!! Will surely go back and will definitely choose them again to '
+        'accommodate us. Thank you and praying for the growth of your business!! More tour packages to come!! 🩷',
+    trip: '3-Day North to South',
+  ),
+  _Review(
+    name: 'Lourielle Dianne',
+    date: 'March 2026',
+    text: '⭐⭐⭐⭐⭐ Last minute, decided to go on tour as a solo joiner. Had an amazing experience with the Oslob- '
+        'Sumilon day tour package! Everything was well-organized from start to finish. The service was excellent, '
+        'and our tour guide was incredibly kind, friendly, and knowledgeable—making the whole trip even more '
+        'enjoyable. We got to visit so many beautiful places, and every part of the tour was smooth, fun, and '
+        'memorable. You can really tell they care about giving guests the best experience possible. Highly '
+        'recommended for anyone looking for a hassle-free and unforgettable travel adventure',
+    trip: 'Oslob–Sumilon Day Tour',
+  ),
+  _Review(
+    name: 'Bernarose A. Villegas',
+    date: 'March 2026',
+    text: 'super accommodating, love the environment',
+  ),
+  _Review(
+    name: 'Rene Sunga',
+    date: 'March 2026',
+    text: 'thanks eman at Vincent sa maingat nyo pag dadrive at pag antabay samin,sana palagi kayo gabayan ng puon '
+        'sainyong trabaho',
+  ),
+  _Review(
+    name: 'RC Sun',
+    date: 'March 2026',
+    text: 'Many thanks to Spoony Cebu Travel and Tours for a smooth and stress-free Cebu city tour and '
+        'Moalboal-Kawasan tour. Great service from Kuya Emman and Kuya Vincent, very professional, kind and fun '
+        'drivers and guide. Thank you for your help. Surely will recommend!',
+    trip: 'City & Moalboal–Kawasan',
+  ),
+  _Review(
+    name: 'Ruby Naomi Millamina',
+    date: 'February 2026',
+    text: 'Super safe and accomodating 🙏 salamat po kay kuya vincent sa pag picture at video samin! Sa uulitin po 😊',
+  ),
+  _Review(
+    name: 'Kristel Dane',
+    date: 'January 2026',
+    text: 'Napakagandang experience kasama ang Spoony Travel and Tours — at second time ko na ito sa kanila kaya '
+        'masasabi kong consistent talaga ang galing at serbisyo! 💯 Mula umpisa hanggang dulo, maayos, organisado, '
+        'at ramdam ang malasakit sa mga biyahero. Lalo na ang aming driver, photographer, videographer, at human '
+        'drone na si Mark Vincent Branoco — sobrang solid! 👏🔥 Hindi lang mahusay magmaneho, kundi napakahusay din '
+        'kumuha ng litrato at video. Sulit na sulit bawat kuha, bawat angle, at bawat moment. Talagang lodi ka! 🙌 '
+        'Maraming salamat, Spoony Travel and Tours, sa isa na namang masaya, safe, at memorable na biyahe. Second '
+        'time pa lang pero siguradong hindi ito ang huli! Highly recommended! 🌏✨ PS. Napatiktok din naman si Kuya '
+        'Driver hehehe',
+  ),
+  _Review(
+    name: 'Avigail Joyce Andrade Cabral',
+    date: 'January 2026',
+    text: 'Highly recommended! 10/10 ang aming naging experience ❤️ Sobrang saya at smooth ng naging travel namin. '
+        'Ang babait din ng drivers at sila na rin mismo nagpipicture sa inyo. Super worth it! 💖',
+  ),
+  _Review(
+    name: 'Fjh Monil',
+    date: 'December 2025',
+    text: 'Great service and very affordable🤗🤗🤗',
+  ),
+  _Review(
+    name: 'Shaillaine Alones',
+    date: 'October 2025',
+    text: 'Easy transaction and budget friendly! Much recommended po 😊 God bless! 😊🙏🏽',
+  ),
+  _Review(
+    name: 'RoseMarie Pelobello',
+    date: 'September 2025',
+    text: 'Thank you Spoony Cebu for the hassle free and budget-friendly tour, very accommodating and friendly din ng '
+        'mga driver sa tour. Highly recommended!',
+  ),
+  _Review(
+    name: 'Angel Adaya',
+    date: 'September 2025',
+    text: 'Highly recommended 💯 Daghang salamat Spoony and Sir Junjun sa smooth nga byahe ug makalingaw na '
+        'experience during our 3D2N Cebu trip. Even the accommodations kay di gyud kamahayan, nindot ug limpyo (plus '
+        'points na naay heater aron di mapasmo human sa laag hahaha) Until our next trip po! God bless and more '
+        'powers to your business!',
+    trip: '3D2N Cebu Trip',
+  ),
+  _Review(
+    name: 'Syrah Quijano',
+    date: 'July 2025',
+    text: '⭐⭐⭐⭐⭐ We had such a great experience with Spoony Cebu Travel and Tour during our 4-day trip in Cebu '
+        '(July 22–25)! From start to finish, everything was smooth and enjoyable. A special shoutout to Kuya Rodjan '
+        'and Kuya Junjun, our driver and tour guide — super friendly, accommodating, and always ready to help us with '
+        'our little requests. He’s also amazing at taking photos! We loved every shot and appreciated how he made '
+        'each stop fun and memorable. Spoony Cebu Travel and Tour was very responsive to our inquiries on their page, '
+        'which gave us peace of mind while planning our trip. As first-time Cebu visitors, our hard-earned money was '
+        'truly worth it — thanks to this reliable and thoughtful travel agency. Highly recommended! 💙🚗✨',
+    trip: '4-Day Cebu Trip',
+  ),
+  _Review(
+    name: 'Shey Nudo',
+    date: 'July 2025',
+    text: 'Literal na HASSLE FREE!! 😍 Big thanks to this agency, super happy ng Cebu family trip namin from day 1 to '
+        'day 4. Very recommended!! 💯👌',
+    trip: 'Family Trip',
+  ),
+  _Review(
+    name: 'Christine Coles - Fortes',
+    date: 'July 2025',
+    text: 'We had an amazing experience with Spoony Cebu Travel and Tour! Highly recommended for anyone planning to '
+        'explore Cebu and Bohol. Their 7D6N package is super sulit and very affordable! Shoutout to the awesome team '
+        'who made our trip extra special: ✨ Kuya Rodjen – our ever-reliable organizer who made sure everything was '
+        'smooth and hassle-free 🚗 Kuya John – our Cebu City tour driver who brought us to the heart of the city 🌴 '
+        'Kuya Jr – our Bohol tour driver who made the countryside tour unforgettable 🌊 Kuya Junjun – our driver for '
+        'Oslob and Moalboal who brought us to breathtaking views and experiences These kuyas didn’t just drive us '
+        'around – they showed us the real beauty of Cebu and Bohol. In fairness, hindi sila boring kasama (haha), but '
+        'when it’s time to rest, you’ll get to rest comfortably during the trip. 💯 If kami ang tatanungin, we’d '
+        'definitely book with them again on our next visit. Thank you, Spoony Cebu Travel and Tour, for a fun, safe, '
+        'and sulit adventure! 🌴🚗💙',
+    trip: '7D6N Cebu & Bohol',
+  ),
+  _Review(
+    name: 'Janella Mae Ebora',
+    date: 'July 2025',
+    text: 'Very recommended po itong agency na ito when you’re planning to go to Cebu. Mabilis po sya kausap and very '
+        'flexible sa gusto mong itinerary and schedule na gawin sa Cebu. Nasulit namin 4D3N tour sa kanila. Sobrang '
+        'bait and masayahin din ng driver. Shoutout sayo Kuya Junjun na kamuka ni Piolo, miss ka na namin!!! See you '
+        'soon Kuya 🫶🏻',
+    trip: '4D3N Tour',
+  ),
+  _Review(
+    name: 'Belle Vanessa Gutierrez Sarmiento-Madeja',
+    date: 'March 2025',
+    text: 'Hassle free & affordable. Highly recommeded! ⭐⭐⭐⭐⭐',
+  ),
+  _Review(
+    name: 'Marielvic Palacio Ababa',
+    date: 'March 2025',
+    text: 'Thank you Spoony Cebu Travel and Tour for your se rvice with Kuya Arvin as our guide. highly recommended! '
+        'Keep it up!',
+  ),
+  _Review(
+    name: 'Lime De Castro Aquino',
+    date: 'March 2025',
+    text: 'Highly recommend ... kuddos sa inyo kuya Rodjel and ate rose at sa buong team... safety first at grabe ang '
+        'babait kasama and chill lang talaga...',
+  ),
+  _Review(
+    name: 'Zen Cui',
+    date: 'February 2025',
+    text: 'Highly recommended travel and tour! Sa DIY Travel Philippines group ko sila nakita at hindi naman ako na '
+        'disappoint na sa kanila ako mag book 😊 Very kind and friendly and mga tour guide and drivers, very cozy ang '
+        'mga room accommodation na binigay nila for us, 12pax. Sulit na sulit ang 5D4N namin with them 😍',
+    trip: '5D4N Group Tour',
+  ),
+  _Review(
+    name: 'Ralph John Gomiega',
+    date: 'October 2024',
+    text: 'Highly recommended! after booking, ride and enjoy nalang kayo sa tour nyo! Drivers are kind and friendly. '
+        'Very accommodating! Definitely will book again! Salamat Spoony Cebu Travel and Tour!',
+  ),
+  _Review(
+    name: 'Bhe Ortega Arapan',
+    date: 'June 2024',
+    text: 'Highly recommended!👍 It was my first time to book a travel tour and Thank God tama yung naging choice ko. '
+        'Thank you Spoony Cebu Travel and Tour. Super nag-enjoy kami sa aming Cebu trip. Shout out kay Kuya Jun for '
+        'assisting us and sa pagdrive nya mabilis pero swabe haha😁 Sa lahat din ng aming mga napuntahan at nameet '
+        'don through them. Thank you po. Ang babait nila lahat. It was really a best birthday gift to me.😊 Godbless '
+        'po and more travel to come.❤️',
+  ),
+  _Review(
+    name: 'Charise Quillopo',
+    date: 'June 2024',
+    text: 'Highly recommended! 💯 Na-enjoy namin ang tour namin sa Cebu and Bohol. Mabait din ’yung owner and yung '
+        'driver/guide namin.',
+    trip: 'Cebu & Bohol Tour',
+  ),
+  _Review(
+    name: 'Anna May Aljas Puertos',
+    date: 'June 2024',
+    text: 'sulit jud kaayo among Cebu Trip 😍 . highly recommended na tour package',
+  ),
+  _Review(
+    name: 'Chris Bello',
+    date: 'May 2024',
+    text: 'Highly Recommended 💯🫶🏻✨ Super nag-enjoy ang family Namin in our 3D2N Exclusive Tour with Spoony! our '
+        'coordinator, Kuya Nats is super kind, funny and approachable. He made our trip extra special at naging bff '
+        'Ng papa ko hehehe The van is spacious for 7 pax and our accommodations in Mandaue and Oslob are comfortable '
+        'and cozy ✨🫶🏻 Worth it going for this tour!',
+    trip: '3D2N Exclusive Tour',
+  ),
+  _Review(
+    name: 'Lesly Dimailig',
+    date: 'April 2024',
+    text: 'Highly recommended!! ✨ Super sulit ng tour!! Ang babait pa nilang lahat!! Na-attach na kami sa mga drivers '
+        'namin haha, to Kuya Jub na sobrang chill kasama at kay Tatay Fred na super funny 🫶🏻 To Kuya Rodjen na very '
+        'hands-on sa lahat ng guests, salute!!',
+  ),
+  _Review(
+    name: 'Alyssa Velasquez',
+    date: 'February 2024',
+    text: 'Highly recommended!🫶🏻 For joiners tour super affordable! Sobrang cool din ng nag tourguide/driver samin '
+        'kuya Leeeeeee nag enjoy po kami!!!💪 Instant human drone 😎 Thank youuu sa smoooth na city tour!🌝🤗',
+    trip: 'Joiners City Tour',
+  ),
+  _Review(
+    name: 'Corazon Abanilla - Sumague',
+    date: 'December 2023',
+    text: 'Highly recommended! Their packages are super AFFORDABLE. We avail Cebu-Oslob-Bohol EXCLUSIVE TOUR but '
+        'it’s much affordable than the others. Thank you so much, Kuya Rodjen!',
+    trip: 'Cebu–Oslob–Bohol Exclusive',
+  ),
+  _Review(
+    name: 'Anette Ivann Rivera Santos',
+    date: 'September 2019',
+    text: 'Thank you sir rodjen for assisting us in our south cebu and city tour! It was a smooth and fun journey!!!',
+    trip: 'South Cebu & City Tour',
+  ),
+  _Review(
+    name: 'Gra Cia',
+    date: 'August 2019',
+    text: 'Thank you so much kuya rodjen for a hassle-free transaction and accomodating us even in a last minute. '
+        'I send him a confirmation in less than 5 hours and will be in mactan airport. And he made to be there in '
+        'the arrival to pick us up. Definitely I will recommend spoony tour cebu to those who are looking for a land '
+        'arrangement and tour. He’s making his best to satisfy us in our tour in cebu and bohol. Til next time kuya 😊',
+    trip: 'Cebu & Bohol Tour',
+  ),
 ];
 
 const _kCardColors = [Wm.accent, _kGreen, Color(0xFF6366F1), Color(0xFF0EA5E9), _kGold, Color(0xFFE11D48)];
@@ -353,10 +644,8 @@ class _HomeTestimonialsSectionState extends State<HomeTestimonialsSection> with 
         const SizedBox(height: 10),
         WmBlurIn(
           delay: const Duration(milliseconds: 160),
-          child: Text(
-              _kFacebookSummary == null ? 'Reviews from our Facebook page.' : '$_kFacebookSummary on Facebook',
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 15, color: Wm.muted, height: 1.5)),
+          child: const Text('$_kFacebookSummary on Facebook',
+              textAlign: TextAlign.center, style: TextStyle(fontSize: 15, color: Wm.muted, height: 1.5)),
         ),
         const SizedBox(height: 6),
         WmBlurIn(
@@ -370,8 +659,13 @@ class _HomeTestimonialsSectionState extends State<HomeTestimonialsSection> with 
       ]),
     );
 
+    // Too few reviews to fill the screen → show them static and centered
+    // instead of looping the same couple of cards.
+    final screenW = MediaQuery.of(context).size.width;
+    final fillsScreen = _reviews.length * ((mobile ? 300.0 : _cardW) + _gap) > screenW;
+
     Widget body;
-    if (_reduced) {
+    if (_reduced || !fillsScreen) {
       body = Padding(
         padding: EdgeInsets.symmetric(horizontal: widget.hPad),
         child: Wrap(
@@ -506,7 +800,7 @@ class _ReviewCardState extends State<_ReviewCard> {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(fontSize: 13.5, fontWeight: FontWeight.w700, color: Wm.ink)),
-                Text('Facebook · ${r.date}',
+                Text(r.date.isEmpty ? 'Facebook' : 'Facebook · ${r.date}',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(fontSize: 11.5, color: Wm.muted)),
