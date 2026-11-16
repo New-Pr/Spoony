@@ -17,7 +17,7 @@ Future<void> main() async {
 
   await Supabase.initialize(
   url: 'https://lapxlngpjrrmqscbvqjx.supabase.co',
-  anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxhcHhsbmdwanJybXFzY2J2cWp4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg3OTE2MDUsImV4cCI6MjA5NDM2NzYwNX0.Qx8FOwb2jlG0KGXwI58zSM8Oo3fP5ggsHnlHXTzpFyk',
+  anonKey: 'sb_publishable_7T5WjVtQivrtd8pOHbCkkg_tMmweNWL',
 );
 
   runApp(const ProviderScope(child: SpoonyApp()));
