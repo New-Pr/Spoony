@@ -1303,9 +1303,6 @@ class _ManageSpotsTabState extends State<_ManageSpotsTab> {
     final descCtrl = TextEditingController(
       text: existing?['description'] as String? ?? '',
     );
-    final feeCtrl = TextEditingController(
-      text: (existing?['entrance_fee'] as num?)?.toStringAsFixed(0) ?? '',
-    );
     final imgCtrl = TextEditingController(
       text: (existing?['image_urls'] as List?)?.isNotEmpty == true
           ? (existing!['image_urls'] as List).first as String
@@ -1447,13 +1444,6 @@ class _ManageSpotsTabState extends State<_ManageSpotsTab> {
               ),
               const SizedBox(height: 14),
               _DlgField(
-                label: 'ENTRANCE FEE (₱) *',
-                controller: feeCtrl,
-                hint: '0',
-                keyboardType: TextInputType.number,
-              ),
-              const SizedBox(height: 14),
-              _DlgField(
                 label: 'IMAGE URL',
                 controller: imgCtrl,
                 hint: 'https://example.com/image.jpg',
@@ -1499,11 +1489,9 @@ class _ManageSpotsTabState extends State<_ManageSpotsTab> {
               onPressed: saving
                   ? null
                   : () async {
-                      if (nameCtrl.text.trim().isEmpty ||
-                          feeCtrl.text.isEmpty) {
+                      if (nameCtrl.text.trim().isEmpty) {
                         setDlg(
-                          () => errorMsg =
-                              'Spot name and entrance fee are required.',
+                          () => errorMsg = 'Spot name is required.',
                         );
                         return;
                       }
@@ -1516,7 +1504,6 @@ class _ManageSpotsTabState extends State<_ManageSpotsTab> {
                           'name': nameCtrl.text.trim(),
                           'description': descCtrl.text.trim(),
                           'region': region,
-                          'entrance_fee': double.tryParse(feeCtrl.text) ?? 0,
                           'image_urls': imgCtrl.text.trim().isNotEmpty
                               ? [imgCtrl.text.trim()]
                               : [],
@@ -1752,8 +1739,6 @@ class _SpotRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final available = spot['is_available'] as bool? ?? true;
-    final feeNum = (spot['entrance_fee'] as num?) ?? 0;
-    final fee = feeNum == 0 ? 'Free entrance' : '₱${feeNum.toStringAsFixed(0)} entrance';
     final isDefault = spot['_isDefault'] == true;
     final urls = (spot['image_urls'] as List?)?.cast<String>() ?? const <String>[];
     // Legacy Unsplash links in the DB are replaced by the built-in Wikimedia photo
@@ -1823,7 +1808,7 @@ class _SpotRow extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 3),
-        Text('$region · $fee', style: const TextStyle(fontSize: 12, color: Wm.muted)),
+        Text(region, style: const TextStyle(fontSize: 12, color: Wm.muted)),
       ],
     );
 

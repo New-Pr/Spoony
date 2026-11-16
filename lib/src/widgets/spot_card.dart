@@ -26,7 +26,6 @@ Color spotRegionColor(DestinationRegion r) {
   }
 }
 
-String _fee(double fee) => fee <= 0 ? 'Free' : '₱${fee.toInt()}';
 
 Widget _imagePlaceholder({double? height}) => Container(
       height: height,
@@ -160,9 +159,6 @@ class _SpotCardState extends State<SpotCard> {
         const SizedBox(width: 3),
         Text('${spot.rating}',
             style: TextStyle(fontSize: size, fontWeight: FontWeight.w700, color: Wm.ink)),
-        const Spacer(),
-        Text(_fee(spot.entranceFee),
-            style: TextStyle(fontSize: size + 1, fontWeight: FontWeight.w700, color: const Color(0xFF3F7D58))),
       ]);
 
   Widget _vertical(Destination spot) {
@@ -341,7 +337,6 @@ Future<void> showSpotDetails(
                     WmBlurIn(
                       delay: const Duration(milliseconds: 180),
                       child: Wrap(spacing: 10, runSpacing: 10, children: [
-                        _InfoTile(icon: Icons.confirmation_number_outlined, label: 'Entrance', value: _fee(spot.entranceFee)),
                         if (spot.travelTime.isNotEmpty)
                           _InfoTile(icon: Icons.schedule_rounded, label: 'From Cebu City', value: spot.travelTime),
                         if (spot.averageDistanceKm > 0)

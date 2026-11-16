@@ -114,7 +114,6 @@ class _RailCardState extends State<_RailCard> {
   Widget build(BuildContext context) {
     final spot = widget.spot;
     final credit = spot.images.isEmpty ? null : creditForUrl(spot.images.first);
-    final fee = spot.entranceFee <= 0 ? 'Free' : 'from ₱${spot.entranceFee.toInt()}';
     final radius = BorderRadius.circular(24);
 
     return MouseRegion(
@@ -237,16 +236,6 @@ class _RailCardState extends State<_RailCard> {
                       Text('${spot.rating}',
                           style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w600)),
                     ]),
-                    const SizedBox(height: 12),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(999),
-                      ),
-                      child: Text(fee,
-                          style: const TextStyle(color: Wm.ink, fontSize: 12, fontWeight: FontWeight.w700)),
-                    ),
                   ],
                 ),
               ),
