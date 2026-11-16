@@ -208,10 +208,14 @@ Admins can:
 
 ### Steps
 
+The repo root contains `railway.json` and a `Dockerfile`, so Railway needs no
+build/start settings: it builds the image (backend + `build/web`) and checks
+`/health` before switching traffic.
+
 1. Build the web app locally (`flutter build web --release`) and commit `build/web`
 2. On Railway: **New Project** → **Deploy from GitHub repo** → select the repo
-3. Set the build command to `npm --prefix backend install` and the start command to `node backend/server.js`
-   (deploying from the repo root keeps `build/web` available to `server.js`)
+   (leave Root Directory empty)
+3. Settings → Networking → **Generate Domain** (or add a custom domain)
 4. Set environment variables (copy from `backend/.env.example`):
 
 ```env
@@ -219,9 +223,11 @@ SUPABASE_URL=https://<project-id>.supabase.co
 SUPABASE_ANON_KEY=...
 SUPABASE_SERVICE_ROLE_KEY=...
 DATABASE_URL=postgresql://...   # Supabase connection string
-JWT_SECRET=your_secret_key
-NODE_ENV=production
 ALLOWED_ORIGINS=https://<your-app>.up.railway.app
+ADMIN_EMAIL=...
+ADMIN_PASSWORD=...
+SMTP_USER=...                   # optional: Gmail sender for backend emails
+SMTP_PASS=...                   # optional: Gmail app password
 ```
 
 Railway sets `PORT` automatically.

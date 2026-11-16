@@ -1,0 +1,20 @@
+# Only backend/ and build/web are needed in the image.
+**/node_modules
+**/.env
+**/.env.*
+!backend/.env.example
+.git
+.dart_tool
+android
+ios
+linux
+macos
+windows
+lib
+test
+assets
+web
+supabase
+build/*
+!build/web
+Create Markdown Document
